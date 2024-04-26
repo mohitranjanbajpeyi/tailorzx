@@ -1,0 +1,166 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Welcome to Tailorzx!</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <%- include('partials/favi') %>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="download/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="download/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="download/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="download/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="download/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="download/vendor/line-awesome/css/line-awesome.min.css" rel="stylesheet">
+  <link href="download/vendor/venobox/venobox.css" rel="stylesheet">
+  <link href="download/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="download/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Selecao - v2.3.0
+  * Template URL: https://bootstrapmade.com/selecao-bootstrap-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center ">
+    <div class="container d-flex align-items-center">
+
+      <div class="logo mr-auto">
+        <h1 class="text-light"><a href="/">Tailorzx</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="download/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li class="active"><a href="/">Home</a></li>
+          <% if(currentUser){ %>
+            <% if(currentUser.type === "Consumer"){ %>
+            <li><a href="/">Signed in as <%= currentUser.username %></a></li>
+            <% } else if(currentUser.type === "Tailor") { %>
+            <li><a href="/dashboard">Signed in as <%= currentUser.username %></a></li>
+            <% } %>
+            <li><a href="/logout">Logout</a></li>
+          <% } else { %>
+            <li class="active"><a href="/login">Login</a></li>
+          <% } %>
+        </ul>
+      </nav><!-- .nav-menu -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <main id="tailor-main">
+    <div class="container">
+      <% if(success && success.length>0){ %>
+          <div id="flash" class="alert alert-success" role="alert">
+              <%= success %>
+          </div>
+      <% } %>
+      <% if(error && error.length>0){ %>
+          <div id="flash" class="alert alert-danger" role="alert">
+              <div><%= error %></div>
+          </div>
+      <% } %>
+    </div>
+    <div class="jumbotron container center">
+        
+        <div class="search">
+            <form class="example" action="/search" method="POST">
+                <input type="text" placeholder="Search location, name, etc." name="input">
+                <button type="submit"><i class='bx bx-search' style="font-size: x-large;"></i></button>
+            </form>
+        </div>
+        <br>
+        <h1 class="display-4">Search for the Tailor of your choice!</h1>
+        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+        <hr class="my-4">
+        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+      </div>
+
+    <br>
+    <br>
+
+    <div class="container">
+            <h1 class="display-5 font center">Featured Tailors</h1>
+            <br>
+            <div class="row center row-tailor">
+                
+            <% for(var i = 0; i < portf.length; i++){ %>
+                <% if(i == 3){ %>
+                    <% break; %>
+                <% } %>
+                <div class="col-md-4 col-tailor">
+                    <br>
+                    <img src="<%= portf[i].pic1 %>" alt="" class="img-fluid">
+                    <h1 class="display-6 font1"><%= portf[i].user %></h1>
+                    <p class="font1"><%= portf[i].desc.substring(0,150) %>...</p>
+                    <h3 class="display-6 font1"><%= portf[i].location %></h3>
+                    <br>
+                    <a href="/tailor/<%= portf[i]._id %>" class="btn btn-danger" style="font-size: large;">Know more</a>
+                    <br>
+                    <br>
+                </div>
+                <% } %>
+            </div>
+    </div>
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+        <h3>Tailorzx</h3>
+        <p>The place to get your cloth designs made easily, quickly and efficiently. With tailors according to your choice, get the design in your budget on your terms.</p>
+        <div class="social-links">
+        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+      </div>
+      <div class="copyright">
+        &copy; Copyright <strong><span>Tailorzx</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/selecao-bootstrap-template/ -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="download/vendor/jquery/jquery.min.js"></script>
+  <script src="download/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="download/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="download/vendor/php-email-form/validate.js"></script>
+  <script src="download/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="download/vendor/venobox/venobox.min.js"></script>
+  <script src="download/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="download/vendor/aos/aos.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="download/js/main.js"></script>
+
+</body>
+
+</html>
